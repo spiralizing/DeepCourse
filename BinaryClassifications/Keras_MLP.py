@@ -15,8 +15,8 @@ y = iris.target[:100]
 
 #Build model
 model = Sequential() #secuencial es que agrega los nodos hacia la derecha
-model.add(Dense(units=1, input_dim=X.shape[1])) #Se agregan unidades (neuronas) con el numero de inputs
-model.add(Activation('sigmoid')) #tipo de activacion
+model.add(Dense(units=1, input_dim=X.shape[1], activation='sigmoid')) #Se agregan unidades (neuronas) con el numero de inputs
+#model.add(Activation('sigmoid')) #tipo de activacion
 #model.summary()
 
 # Compile model
