@@ -34,6 +34,11 @@ model.add(Dense(units=100, input_dim=x_train.shape[1], activation='relu'))
 #model.add(Dropout(0.2)) #adds dropout from first to second layer of 20 percent.
 model.add(Dense(units=50, activation='relu',kernel_regularizer=l2(0.0001))) #it is possible to use regularizers
 model.add(Dense(units=10, activation='softmax'))
+#for batch normalization
+#model.add(Dense(units=10, kernel_regularizer=l2(00001)))
+#model.add(BatchNormalization())
+#model.add(Activation('relu'))
+
 model.summary()
 # Compiling model (define optimizer and loss function)
 model.compile(optimizer='rmsprop', loss='categorical_crossentropy') #crossentropy is a kullback-leibler divergence kind.
