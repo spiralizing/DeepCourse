@@ -1,4 +1,5 @@
 # Imports
+import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 from keras.datasets import mnist
@@ -28,22 +29,26 @@ y_train = y_train[n_train_samples:]
 
 
 
+
 ######################MODELS #################################################
 model = Sequential()
-model.add(Dense(units=100, input_dim=x_train.shape[1], activation='relu'))
+model.add(Dense(units=1000, input_dim=x_train.shape[1], activation='relu'))
 #model.add(Dropout(0.2)) #adds dropout from first to second layer of 20 percent.
-model.add(Dense(units=50, activation='relu',kernel_regularizer=l2(0.0001))) #it is possible to use regularizers
+model.add(Dense(units=500, activation='relu',kernel_regularizer=l2(0.0001))) #it is possible to use regularizers
+model.add(Dense(units=500, activation='relu',kernel_regularizer=l2(0.0001)))
+model.add(Dense(units=500, activation='relu',kernel_regularizer=l2(0.0001)))
+model.add(Dense(units=500, activation='relu',kernel_regularizer=l2(0.0001)))
 model.add(Dense(units=10, activation='softmax'))
 #for batch normalization
 #model.add(Dense(units=10, kernel_regularizer=l2(00001)))
 #model.add(BatchNormalization())
 #model.add(Activation('relu'))
 
-model.summary()
+#model.summary()
 # Compiling model (define optimizer and loss function)
 model.compile(optimizer='rmsprop', loss='categorical_crossentropy') #crossentropy is a kullback-leibler divergence kind.
 
-# Train your model
+# Traning the model
 num_epochs = 20
 losses = np.zeros((num_epochs, 2))
 #print(f"Training on {x_train.shape[0]} samples - validating on {x_val.shape[0]} samples.")
@@ -54,13 +59,122 @@ for epoch in range(num_epochs):
     losses[epoch, 1] = model.evaluate(x_val, y_val, verbose=False)
     print(f"Train loss: {losses[epoch, 0]:6.4f} -- Val loss{losses[epoch, 1]:6.4f}")
 
+###########################Model 2#####################################
+model2 = Sequential()
+model2.add(Dense(units=5000, input_dim=x_train.shape[1], activation='relu'))
+#model2.add(Dropout(0.2)) #adds dropout from first to second layer of 20 percent.
+model2.add(Dense(units=500, activation='relu')) #,kernel_regularizer=l2(0.0001))) #it is possible to use regularizers
+model2.add(Dense(units=10, activation='softmax'))
+#for batch normalization
+#model2.add(Dense(units=10, kernel_regularizer=l2(00001)))
+#model2.add(BatchNormalization())
+#model2.add(Activation('relu'))
+
+#model2.summary()
+# Compiling model2 (define optimizer and loss function)
+model2.compile(optimizer='rmsprop', loss='categorical_crossentropy') #crossentropy is a kullback-leibler divergence kind.
+
+# Traning the model2
+num_epochs = 20
+losses2 = np.zeros((num_epochs, 2))
+#print(f"Training on {x_train.shape[0]} samples - validating on {x_val.shape[0]} samples.")
+for epoch in range(num_epochs):
+    print(f"Epoch: {epoch+1:3d} -- ", end="")
+    model2.fit(x_train, y_train, epochs=1, batch_size=128, validation_data=(x_val, y_val), verbose=False)
+    losses2[epoch, 0] = model2.evaluate(x_train, y_train, verbose=False)
+    losses2[epoch, 1] = model2.evaluate(x_val, y_val, verbose=False)
+    print(f"Train loss: {losses2[epoch, 0]:6.4f} -- Val loss{losses2[epoch, 1]:6.4f}")
+
+###########################Model 2#####################################
+model3 = Sequential()
+model3.add(Dense(units=5000, input_dim=x_train.shape[1], activation='relu'))
+#model3.add(Dropout(0.2)) #adds dropout from first to second layer of 20 percent.
+model3.add(Dense(units=500, activation='relu',kernel_regularizer=l2(0.0001))) #it is possible to use regularizers
+model3.add(Dense(units=10, activation='softmax'))
+#for batch normalization
+#model3.add(Dense(units=10, kernel_regularizer=l2(00001)))
+#model3.add(BatchNormalization())
+#model3.add(Activation('relu'))
+
+#model3.summary()
+# Compiling model3 (define optimizer and loss function)
+model3.compile(optimizer='rmsprop', loss='categorical_crossentropy') #crossentropy is a kullback-leibler divergence kind.
+
+# Traning the model3
+num_epochs = 20
+losses3 = np.zeros((num_epochs, 2))
+#print(f"Training on {x_train.shape[0]} samples - validating on {x_val.shape[0]} samples.")
+for epoch in range(num_epochs):
+    print(f"Epoch: {epoch+1:3d} -- ", end="")
+    model3.fit(x_train, y_train, epochs=1, batch_size=32, validation_data=(x_val, y_val), verbose=False)
+    losses3[epoch, 0] = model3.evaluate(x_train, y_train, verbose=False)
+    losses3[epoch, 1] = model3.evaluate(x_val, y_val, verbose=False)
+    print(f"Train loss: {losses3[epoch, 0]:6.4f} -- Val loss{losses3[epoch, 1]:6.4f}")
+
+
+###########################Model 2#####################################
+model4 = Sequential()
+model4.add(Dense(units=1000, input_dim=x_train.shape[1], activation='relu'))
+#model4.add(Dropout(0.2)) #adds dropout from first to second layer of 20 percent.
+model4.add(Dense(units=500, activation='relu'))#,kernel_regularizer=l2(0.0001))) #it is possible to use regularizers
+model4.add(Dense(units=500, activation='relu'))
+model4.add(Dense(units=500, activation='relu'))
+model4.add(Dense(units=500, activation='relu'))
+model4.add(Dense(units=10, activation='softmax'))
+#for batch normalization
+#model4.add(Dense(units=10, kernel_regularizer=l2(00001)))
+#model4.add(BatchNormalization())
+#model4.add(Activation('relu'))
+
+#model4.summary()
+# Compiling model4 (define optimizer and loss function)
+model4.compile(optimizer='rmsprop', loss='categorical_crossentropy') #crossentropy is a kullback-leibler divergence kind.
+
+# Traning the model4
+num_epochs = 20
+losses4 = np.zeros((num_epochs, 2))
+#print(f"Training on {x_train.shape[0]} samples - validating on {x_val.shape[0]} samples.")
+for epoch in range(num_epochs):
+    print(f"Epoch: {epoch+1:3d} -- ", end="")
+    model4.fit(x_train, y_train, epochs=1, batch_size=32, validation_data=(x_val, y_val), verbose=False)
+    losses4[epoch, 0] = model4.evaluate(x_train, y_train, verbose=False)
+    losses4[epoch, 1] = model4.evaluate(x_val, y_val, verbose=False)
+    print(f"Train loss: {losses4[epoch, 0]:6.4f} -- Val loss{losses4[epoch, 1]:6.4f}")
 
 
 ######################PLOTS######################################
 # Plot training history
-plt.figure(figsize=(15, 10))
-plt.plot(losses[:, 0], label='Training', linewidth=2)
-plt.plot(losses[:, 1], label='Validation', linewidth=2)
+plt.figure(figsize=(15, 15))
+ax = plt.subplot(2, 2, 1)
+ax.plot(losses[:, 0], label='Training', linewidth=2)
+ax.plot(losses[:, 1], label='Validation', linewidth=2)
+ax.set_title("Model 1", fontsize=18)
+plt.ylabel("Loss", fontsize=18)
+plt.xlabel("Epoch", fontsize=18)
+ax.tick_params(labelsize=18)
+ax = plt.subplot(2, 2, 2)
+ax.plot(losses2[:, 0], label='Training', linewidth=2)
+ax.plot(losses2[:, 1], label='Validation', linewidth=2)
+ax.set_title("Model 2", fontsize=18)
+ax.tick_params(labelsize=18)
+plt.xlabel("Epoch", fontsize=18)
+ax = plt.subplot(2, 2, 3)
+ax.plot(losses3[:, 0], label='Training', linewidth=2)
+ax.plot(losses3[:, 1], label='Validation', linewidth=2)
+ax.set_title("Model 3", fontsize=18)
+plt.ylabel("Loss", fontsize=18)
+plt.xlabel("Epoch", fontsize=18)
+ax.tick_params(labelsize=18)
+ax = plt.subplot(2, 2, 4)
+ax.plot(losses4[:, 0], label='Training', linewidth=2)
+ax.plot(losses4[:, 1], label='Validation', linewidth=2)
+ax.set_title("Model 4", fontsize=18)
+ax.tick_params(labelsize=18)
+plt.xlabel("Epoch", fontsize=18)
+#plt.legend(fontsize=18)
+
+
+
 plt.legend(fontsize=18)
 plt.xlabel("Epoch", fontsize=18)
 plt.ylabel("Loss", fontsize=18)
@@ -72,4 +186,7 @@ plt.tick_params(labelsize=18)
 # Make predictions for test set and evaluate performance
 y_hat = model.predict(x_test)
 test_loss = model.evaluate(x_test, y_test)
-print("Test error: {:6.4f}".format(test_loss))
+y_hat2 = model2.predict(x_test)
+test_loss2 = model2.evaluate(x_test, y_test)
+print("Test error model 1: {:6.4f}".format(test_loss))
+print("Test error model 2: {:6.4f}".format(test_loss2))
