@@ -39,7 +39,7 @@ model.add(Dense(units=10, activation='softmax'))
 #model.add(BatchNormalization())
 #model.add(Activation('relu'))
 
-model.summary()
+#model.summary()
 # Compiling model (define optimizer and loss function)
 model.compile(optimizer='rmsprop', loss='categorical_crossentropy') #crossentropy is a kullback-leibler divergence kind.
 
@@ -73,3 +73,17 @@ plt.tick_params(labelsize=18)
 y_hat = model.predict(x_test)
 test_loss = model.evaluate(x_test, y_test)
 print("Test error: {:6.4f}".format(test_loss))
+
+for i in range(10):
+    print(y_test[i])
+    print(np.round(y_hat[i]))
+    print("\n")
+
+######################This is the confusion mamtrix########################
+y_true = np.argmax(y_test, axis=1)
+y_pred = np.argmax(y_hat, axis=1)
+from sklearn.metrics import confusion_matrix
+conf_matrix = confusion_matrix(y_true, y_pred)
+plt.imshow(conf_matrix, interpolation='nearest')
+plt.title("Confusion Matrix")
+plt.colorbar()
