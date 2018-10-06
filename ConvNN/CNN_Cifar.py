@@ -121,3 +121,17 @@ plt.grid()
 y_hat = model.predict(x_test)
 test_loss, test_acc = model.evaluate(x_test, y_test)
 print("Test loss: {:6.4f}, acc: {:6.4f}".format(test_loss, test_acc))
+
+################################################################################
+#Now lets see what on the layers, weights and bias. (filters)
+W = model.layers[1].get_weights()[0]
+plt.figure(figsize=(12, 4))
+for i in range(32):
+    ax = plt.subplot(4, 8, i + 1)
+    plt.imshow(W[:, :, :, i])
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+
+b = model.layers[1].get_weights()[1]
+print(b.shape)
+print(b)
